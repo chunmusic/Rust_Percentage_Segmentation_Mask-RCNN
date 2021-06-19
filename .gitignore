@@ -1,0 +1,4 @@
+training_process/
+output/
+mask_rcnn_inception_resnet_v2_1024x1024_coco17_gpu-8/
+
