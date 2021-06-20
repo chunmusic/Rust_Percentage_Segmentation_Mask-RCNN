@@ -91,29 +91,19 @@ def show_inference(model, image_np):
 
     #print(np.reshape(mask, (-1, mask.shape[-1])).astype(np.float32).sum())
 
-    for i in range(mask.shape[-1]):
-        _mask = mask[:, :, i]
-        image_np[_mask] = 255
-        image_np[~_mask] = 0
-        unique, counts = np.unique(image_np, return_counts=True)
-        mask_area = counts[1] / (counts[0] + counts[1])
-        print(counts[1])
-
-
-
     # Visualizing the results
-    final_img = vis_util.visualize_boxes_and_labels_on_image_array(
-                    image_np_with_detections,
-                    boxes,
-                    classes,
-                    scores,
-                    category_index,
-                    instance_masks=mask,
-                    use_normalized_coordinates=True,
-                    line_thickness=3)
+    final_img,rust_ret,rust_percent = vis_util.visualize_boxes_and_labels_on_image_array(
+                                        image_np_with_detections,
+                                        boxes,
+                                        classes,
+                                        scores,
+                                        category_index,
+                                        instance_masks=mask,
+                                        use_normalized_coordinates=True,
+                                        line_thickness=3)
+                            
     
-    
-    return final_img
+    return final_img,rust_ret,rust_percent
 
 
 model_dir = '/home/pongsakorn/kaggle_ws/rust_segmentation_ws/output/export_saved_model/saved_model'
@@ -126,11 +116,13 @@ while cap.isOpened():
     ret, img = cap.read()
 
     if ret == 1:
-
         img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-
-        final_img = show_inference(masking_model, img)
+        final_img,rust_ret,rust_percent = show_inference(masking_model, img)
         
+        if rust_ret:
+            cv2.putText(final_img,"Rust Percent",(30,30),cv2.FONT_HERSHEY_SIMPLEX,1,(112,40,9),3)
+            cv2.putText(final_img,str(round(rust_percent,2))+" %",(30,70),cv2.FONT_HERSHEY_SIMPLEX,1,(112,40,9),3)
+
         final_img = cv2.cvtColor(final_img, cv2.COLOR_RGB2BGR)
 
         cv2.imshow("img",final_img)
