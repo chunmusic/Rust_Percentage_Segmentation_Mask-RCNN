@@ -110,7 +110,7 @@ model_dir = '/home/pongsakorn/kaggle_ws/rust_segmentation_ws/output/export_saved
 masking_model = load_model(model_dir)
 
 
-cap = cv2.VideoCapture("rust_output.mp4")
+cap = cv2.VideoCapture("rust.mp4")
 
 while cap.isOpened():
     ret, img = cap.read()
