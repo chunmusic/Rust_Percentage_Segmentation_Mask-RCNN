@@ -8,6 +8,7 @@
 
 - Please go to this url to download weight file (https://drive.google.com/drive/folders/1T5eKdi7I8pXphpcSJOoptylnW1H4aJO0?usp=sharing)
 
+- The project was implemented in World Robot Summit 2020 (WRS) competition.
 
 ## How to use
 
