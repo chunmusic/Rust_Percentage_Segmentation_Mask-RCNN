@@ -1,4 +1,4 @@
-# Rust Percentage Instance Segmentation
+# Rust Percentage Instance Segmentation (Mask-RCNN)
 
 - This repository is created to calculate rust percentage with instance segmentation.
 
